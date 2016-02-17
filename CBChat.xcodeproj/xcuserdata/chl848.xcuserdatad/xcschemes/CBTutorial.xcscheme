@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6399F352180EF944005E5EE8"
-               BuildableName = "CBTutorial.app"
-               BlueprintName = "CBTutorial"
-               ReferencedContainer = "container:CBTutorial.xcodeproj">
+               BuildableName = "CBChat.app"
+               BlueprintName = "CBChat"
+               ReferencedContainer = "container:CBChat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6399F373180EF944005E5EE8"
-               BuildableName = "CBTutorialTests.xctest"
-               BlueprintName = "CBTutorialTests"
-               ReferencedContainer = "container:CBTutorial.xcodeproj">
+               BuildableName = "CBChat.xctest"
+               BlueprintName = "CBChatTests"
+               ReferencedContainer = "container:CBChat.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6399F352180EF944005E5EE8"
-            BuildableName = "CBTutorial.app"
-            BlueprintName = "CBTutorial"
-            ReferencedContainer = "container:CBTutorial.xcodeproj">
+            BuildableName = "CBChat.app"
+            BlueprintName = "CBChat"
+            ReferencedContainer = "container:CBChat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6399F352180EF944005E5EE8"
-            BuildableName = "CBTutorial.app"
-            BlueprintName = "CBTutorial"
-            ReferencedContainer = "container:CBTutorial.xcodeproj">
+            BuildableName = "CBChat.app"
+            BlueprintName = "CBChat"
+            ReferencedContainer = "container:CBChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6399F352180EF944005E5EE8"
-            BuildableName = "CBTutorial.app"
-            BlueprintName = "CBTutorial"
-            ReferencedContainer = "container:CBTutorial.xcodeproj">
+            BuildableName = "CBChat.app"
+            BlueprintName = "CBChat"
+            ReferencedContainer = "container:CBChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

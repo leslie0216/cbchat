@@ -39,23 +39,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6399F353180EF944005E5EE8 /* CBTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6399F353180EF944005E5EE8 /* CBChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6399F356180EF944005E5EE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6399F358180EF944005E5EE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6399F35A180EF944005E5EE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		6399F35E180EF944005E5EE8 /* CBTutorial-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBTutorial-Info.plist"; sourceTree = "<group>"; };
+		6399F35E180EF944005E5EE8 /* CBChat-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBChat-Info.plist"; sourceTree = "<group>"; };
 		6399F360180EF944005E5EE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6399F362180EF944005E5EE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6399F364180EF944005E5EE8 /* CBTutorial-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBTutorial-Prefix.pch"; sourceTree = "<group>"; };
+		6399F364180EF944005E5EE8 /* CBChat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBChat-Prefix.pch"; sourceTree = "<group>"; };
 		6399F365180EF944005E5EE8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6399F366180EF944005E5EE8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6399F369180EF944005E5EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6399F36B180EF944005E5EE8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6399F36C180EF944005E5EE8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6399F36E180EF944005E5EE8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6399F374180EF944005E5EE8 /* CBTutorialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CBTutorialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6399F374180EF944005E5EE8 /* CBChat.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CBChat.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6399F375180EF944005E5EE8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		6399F37D180EF944005E5EE8 /* CBTutorialTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBTutorialTests-Info.plist"; sourceTree = "<group>"; };
+		6399F37D180EF944005E5EE8 /* CBChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CBChatTests-Info.plist"; sourceTree = "<group>"; };
 		6399F37F180EF944005E5EE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6399F381180EF944005E5EE8 /* CBTutorialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBTutorialTests.m; sourceTree = "<group>"; };
 		6399F38B180EF9E8005E5EE8 /* CBCentralManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCentralManagerViewController.h; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 		6399F354180EF944005E5EE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6399F353180EF944005E5EE8 /* CBTutorial.app */,
-				6399F374180EF944005E5EE8 /* CBTutorialTests.xctest */,
+				6399F353180EF944005E5EE8 /* CBChat.app */,
+				6399F374180EF944005E5EE8 /* CBChat.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,10 +175,10 @@
 		6399F35D180EF944005E5EE8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6399F35E180EF944005E5EE8 /* CBTutorial-Info.plist */,
+				6399F35E180EF944005E5EE8 /* CBChat-Info.plist */,
 				6399F35F180EF944005E5EE8 /* InfoPlist.strings */,
 				6399F362180EF944005E5EE8 /* main.m */,
-				6399F364180EF944005E5EE8 /* CBTutorial-Prefix.pch */,
+				6399F364180EF944005E5EE8 /* CBChat-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 		6399F37C180EF944005E5EE8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6399F37D180EF944005E5EE8 /* CBTutorialTests-Info.plist */,
+				6399F37D180EF944005E5EE8 /* CBChatTests-Info.plist */,
 				6399F37E180EF944005E5EE8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -249,9 +249,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6399F352180EF944005E5EE8 /* CBTutorial */ = {
+		6399F352180EF944005E5EE8 /* CBChat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6399F385180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBTutorial" */;
+			buildConfigurationList = 6399F385180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBChat" */;
 			buildPhases = (
 				6399F34F180EF944005E5EE8 /* Sources */,
 				6399F350180EF944005E5EE8 /* Frameworks */,
@@ -261,14 +261,14 @@
 			);
 			dependencies = (
 			);
-			name = CBTutorial;
+			name = CBChat;
 			productName = CBTutorial;
-			productReference = 6399F353180EF944005E5EE8 /* CBTutorial.app */;
+			productReference = 6399F353180EF944005E5EE8 /* CBChat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6399F373180EF944005E5EE8 /* CBTutorialTests */ = {
+		6399F373180EF944005E5EE8 /* CBChatTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6399F388180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBTutorialTests" */;
+			buildConfigurationList = 6399F388180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBChatTests" */;
 			buildPhases = (
 				6399F370180EF944005E5EE8 /* Sources */,
 				6399F371180EF944005E5EE8 /* Frameworks */,
@@ -279,9 +279,9 @@
 			dependencies = (
 				6399F37A180EF944005E5EE8 /* PBXTargetDependency */,
 			);
-			name = CBTutorialTests;
+			name = CBChatTests;
 			productName = CBTutorialTests;
-			productReference = 6399F374180EF944005E5EE8 /* CBTutorialTests.xctest */;
+			productReference = 6399F374180EF944005E5EE8 /* CBChat.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -301,7 +301,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6399F34E180EF944005E5EE8 /* Build configuration list for PBXProject "CBTutorial" */;
+			buildConfigurationList = 6399F34E180EF944005E5EE8 /* Build configuration list for PBXProject "CBChat" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -314,8 +314,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6399F352180EF944005E5EE8 /* CBTutorial */,
-				6399F373180EF944005E5EE8 /* CBTutorialTests */,
+				6399F352180EF944005E5EE8 /* CBChat */,
+				6399F373180EF944005E5EE8 /* CBChatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -369,7 +369,7 @@
 /* Begin PBXTargetDependency section */
 		6399F37A180EF944005E5EE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6399F352180EF944005E5EE8 /* CBTutorial */;
+			target = 6399F352180EF944005E5EE8 /* CBChat */;
 			targetProxy = 6399F379180EF944005E5EE8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -482,10 +482,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBTutorial/CBTutorial-Prefix.pch";
-				INFOPLIST_FILE = "CBTutorial/CBTutorial-Info.plist";
+				GCC_PREFIX_HEADER = "CBTutorial/CBChat-Prefix.pch";
+				INFOPLIST_FILE = "CBTutorial/CBChat-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mobiletuts.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CBChat;
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = CBTutorial/message/protobuf;
 				WRAPPER_EXTENSION = app;
@@ -501,10 +501,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBTutorial/CBTutorial-Prefix.pch";
-				INFOPLIST_FILE = "CBTutorial/CBTutorial-Info.plist";
+				GCC_PREFIX_HEADER = "CBTutorial/CBChat-Prefix.pch";
+				INFOPLIST_FILE = "CBTutorial/CBChat-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mobiletuts.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CBChat;
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = CBTutorial/message/protobuf;
 				WRAPPER_EXTENSION = app;
@@ -521,14 +521,14 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBTutorial/CBTutorial-Prefix.pch";
+				GCC_PREFIX_HEADER = "CBTutorial/CBChat-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CBTutorialTests/CBTutorialTests-Info.plist";
+				INFOPLIST_FILE = "CBTutorialTests/CBChatTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mobiletuts.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CBChat;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -544,10 +544,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CBTutorial/CBTutorial-Prefix.pch";
-				INFOPLIST_FILE = "CBTutorialTests/CBTutorialTests-Info.plist";
+				GCC_PREFIX_HEADER = "CBTutorial/CBChat-Prefix.pch";
+				INFOPLIST_FILE = "CBTutorialTests/CBChatTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Mobiletuts.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CBChat;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -556,7 +556,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6399F34E180EF944005E5EE8 /* Build configuration list for PBXProject "CBTutorial" */ = {
+		6399F34E180EF944005E5EE8 /* Build configuration list for PBXProject "CBChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6399F383180EF944005E5EE8 /* Debug */,
@@ -565,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6399F385180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBTutorial" */ = {
+		6399F385180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6399F386180EF944005E5EE8 /* Debug */,
@@ -574,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6399F388180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBTutorialTests" */ = {
+		6399F388180EF944005E5EE8 /* Build configuration list for PBXNativeTarget "CBChatTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6399F389180EF944005E5EE8 /* Debug */,

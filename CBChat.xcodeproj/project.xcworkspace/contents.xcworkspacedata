@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CBTutorial.xcodeproj">
+      location = "self:/Users/chl848/Documents/OCStudy/CBChat/CBChat.xcodeproj">
    </FileRef>
 </Workspace>
