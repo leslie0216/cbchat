@@ -168,11 +168,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipw-3o-Ye7">
+                                <rect key="frame" x="152" y="135" width="84" height="30"/>
+                                <state key="normal" title="Start Ping"/>
+                                <connections>
+                                    <action selector="ping:" destination="XhW-8c-Qg0" eventType="touchDown" id="mOF-Za-Gs6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZMn-Vc-Fua"/>
                     <connections>
+                        <outlet property="btnPing" destination="Ipw-3o-Ye7" id="Ooi-8m-LNH"/>
                         <outlet property="btnSend" destination="fan-F8-fRu" id="btq-Pe-PB4"/>
                         <outlet property="lbStatus" destination="NGR-C0-gFm" id="tEz-Ga-kct"/>
                         <outlet property="textview" destination="UZR-t0-kAT" id="ekp-UW-sBi"/>

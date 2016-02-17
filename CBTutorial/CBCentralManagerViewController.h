@@ -15,8 +15,9 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *textview;
 @property (strong, nonatomic) IBOutlet UITextView *textview_peripheral_msg;
-@property(weak, nonatomic) IBOutlet UIButton *btnSend;
+@property (weak, nonatomic) IBOutlet UIButton *btnSend;
 @property (weak, nonatomic) IBOutlet UILabel *lbStatus;
+@property (weak, nonatomic) IBOutlet UIButton *btnPing;
 @property (strong, nonatomic) CBCentralManager *centralManager;
 @property (strong, nonatomic) CBPeripheral *discoveredPeripheral;
 @property (strong, nonatomic) NSMutableData *data;
@@ -28,5 +29,6 @@
 @property (strong, nonatomic) CBCharacteristic *writeCharacteristic;
 
 - (IBAction)sendMsg:(id)sender;
+- (IBAction)ping:(id)sender;
 
 @end

@@ -13,6 +13,9 @@
 {
     NSTimer *timer;
     NSTimeInterval starTime;
+    NSMutableArray *timerArray;
+    BOOL isPing;
+    NSString *chatHistory;
 }
 
 - (void)viewDidLoad {
@@ -22,6 +25,7 @@
     _data = [[NSMutableData alloc] init];
     self.btnSend.enabled = FALSE;
     self.lbStatus.text = @"Not Connected";
+    self.btnPing.enabled = FALSE;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -88,8 +92,11 @@
     }
     [_centralManager cancelPeripheralConnection:_discoveredPeripheral];
     self.btnSend.enabled = FALSE;
+    self.btnPing.enabled = FALSE;
     self.lbStatus.text = @"Not Connected";
-    [timer invalidate];
+    if (timer != nil) {
+        [timer invalidate];
+    }
 }
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
@@ -142,17 +149,20 @@
         {
             self.writeCharacteristic = characteristic;
             self.btnSend.enabled = TRUE;
+            self.btnPing.enabled = TRUE;
+            [self.btnPing setTitle:@"Start Ping" forState:UIControlStateNormal];
         }
     }
     
     self.lbStatus.text = @"Connected";
+    /*
     if (timer == nil) {
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
                                                      target:self
                                                    selector:@selector(showTimer)
                                                    userInfo:nil
                                                     repeats:YES];
-    }
+    }*/
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -178,9 +188,15 @@
         
         NSString *msg = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
         
+        
+        
         NSString *history = [NSString stringWithFormat:@"%@: %@\n", name, msg];
-
-        [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
+        
+        if (isPing) {
+            chatHistory = [history stringByAppendingString:chatHistory];
+        } else {
+            [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
+        }
 
         
         [_data setLength:0];
@@ -214,6 +230,8 @@
 - (IBAction)sendMsg:(id)sender
 {
     self.btnSend.enabled = FALSE;
+    self.btnPing.enabled = FALSE;
+
     
     [_textview resignFirstResponder];
     
@@ -240,10 +258,19 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSTimeInterval timeInterval = ([[NSDate date] timeIntervalSince1970] * 1000) - starTime;
-    [self updateHistory:timeInterval];
-    
-    self.btnSend.enabled = TRUE;
+    NSTimeInterval timeInterval = (([[NSDate date] timeIntervalSince1970] * 1000) - starTime)/2.0;
+    NSNumber *numTime = [[NSNumber alloc] initWithDouble:timeInterval];
+    if (isPing) {
+        [timerArray addObject:numTime];
+        NSNumber *average = [timerArray valueForKeyPath:@"@avg.self"];
+        NSString *ping = [[NSString alloc]initWithFormat:@"Ping : %f\n", [average doubleValue]];
+        [_textview_peripheral_msg setText:[ping stringByAppendingString:chatHistory]];
+        [self doPing];
+    } else {
+        [self updateHistory:timeInterval];
+        self.btnSend.enabled = TRUE;
+        self.btnPing.enabled = TRUE;
+    }
     
     if (error)
     {
@@ -254,7 +281,12 @@
 
 - (void)updateHistory:(double) time
 {
+    if ([_textview.text isEqualToString:@""]) {
+        return;
+    }
+    
     NSString *history = [NSString stringWithFormat:@"(%f)Me: %@\n", time, _textview.text];
+    
     [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
     
     [_textview setText:@""];
@@ -264,6 +296,55 @@
 {
     double time = [[NSDate date] timeIntervalSince1970] * 1000;;
     self.lbStatus.text = [NSString stringWithFormat:@"%lf", time];
+}
+
+- (IBAction)ping:(id)sender
+{
+    if (isPing) {
+        [self stopPing];
+    } else {
+        [self startPing];
+    }
+}
+
+- (void)startPing
+{
+    if (timerArray == nil) {
+        timerArray = [[NSMutableArray alloc] init];
+    } else {
+        [timerArray removeAllObjects];
+    }
+    
+    isPing = YES;
+    self.btnSend.enabled = FALSE;
+    self.btnPing.enabled = TRUE;
+    self.textview.editable = FALSE;
+    [self.textview resignFirstResponder];
+    [self.btnPing setTitle:@"Stop Ping" forState:UIControlStateNormal];
+    chatHistory = self.textview_peripheral_msg.text;
+    [self doPing];
+
+}
+
+- (void)stopPing
+{
+    isPing = NO;
+    self.btnSend.enabled = TRUE;
+    self.btnPing.enabled = TRUE;
+    self.textview.editable = TRUE;
+    [self.btnPing setTitle:@"Start Ping" forState:UIControlStateNormal];
+}
+
+- (void)doPing
+{
+    TransferMessage *message = [[TransferMessage alloc]init];
+    message.name = [[UIDevice currentDevice] name];
+    message.time = [[NSDate date] timeIntervalSince1970] * 1000;
+    message.complete = YES;
+    message.message = @"p";
+    
+    starTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    [_discoveredPeripheral writeValue:[message data] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 @end

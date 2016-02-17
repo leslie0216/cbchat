@@ -66,7 +66,9 @@
     NSLog(@"didSubscribeToCharacteristic");
     self.btnSend.enabled = FALSE;
     self.lbStatus.text = @"Not Connected";
-    [timer invalidate];
+    if (timer != nil) {
+        [timer invalidate];
+    }
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
@@ -81,13 +83,14 @@
     self.btnSend.enabled = TRUE;
     
     self.lbStatus.text = @"Connected";
+    /*
     if (timer == nil) {
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
                                                  target:self
                                                selector:@selector(showTimer)
                                                userInfo:nil
                                                 repeats:YES];
-    }
+    }*/
 }
 
 - (void) sendData
@@ -131,7 +134,9 @@
             return;
         }
         
-        [self updateHistory:timeInterval];
+        if (isComplete) {
+            [self updateHistory:timeInterval];
+        }
         
         NSString *stringFromData = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
         NSLog(@"Sent : %@", stringFromData);
@@ -182,10 +187,12 @@
                 NSString *remoteName = message.name;
                 NSString *dataString = message.message;
                 //double time = ([[NSDate date] timeIntervalSince1970] * 1000) - message.time;
-                NSLog(@"Received from central - %@", dataString);
                 
-                NSString *history = [NSString stringWithFormat:@"%@: %@\n", remoteName, dataString];
-                [_textView_central_msg setText:[history stringByAppendingString:self.textView_central_msg.text]];
+                if (![dataString isEqualToString:@"p"]) {
+                    NSLog(@"Received from central - %@", dataString);
+                    NSString *history = [NSString stringWithFormat:@"%@: %@\n", remoteName, dataString];
+                    [_textView_central_msg setText:[history stringByAppendingString:self.textView_central_msg.text]];
+                }
             } else {
                 NSLog(@"Received data is not complete!!!");
             }
