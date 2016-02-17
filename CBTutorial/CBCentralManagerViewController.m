@@ -7,8 +7,13 @@
 //
 
 #import "CBCentralManagerViewController.h"
+#import "Messages.pbobjc.h"
 
 @implementation CBCentralManagerViewController
+{
+    NSTimer *timer;
+    NSTimeInterval starTime;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +89,7 @@
     [_centralManager cancelPeripheralConnection:_discoveredPeripheral];
     self.btnSend.enabled = FALSE;
     self.lbStatus.text = @"Not Connected";
+    [timer invalidate];
 }
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
@@ -140,6 +146,13 @@
     }
     
     self.lbStatus.text = @"Connected";
+    if (timer == nil) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
+                                                     target:self
+                                                   selector:@selector(showTimer)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -154,12 +167,19 @@
         return;
     }
     
-    NSString *stringFromData = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    TransferMessage *message = [[TransferMessage alloc] initWithData:characteristic.value error:nil];
     
-    if ([stringFromData isEqualToString:@"EOM"])
+    if (message.complete)
     {
+        NSString *name = message.name;
+        //double time = ([[NSDate date] timeIntervalSince1970] * 1000) - message.time;
+        
+        [self.data appendData:[message.message dataUsingEncoding:NSUTF8StringEncoding]];
+        
         NSString *msg = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-        NSString *history = [NSString stringWithFormat:@"Remote: %@\n", msg];
+        
+        NSString *history = [NSString stringWithFormat:@"%@: %@\n", name, msg];
+
         [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
 
         
@@ -169,7 +189,7 @@
          
         //[_centralManager cancelPeripheralConnection:peripheral];
     } else {
-        [_data appendData:characteristic.value];
+        [_data appendData:[message.message dataUsingEncoding:NSUTF8StringEncoding]];
     }
 }
 
@@ -204,20 +224,25 @@
     _sendDataIndex = 0;
     
     [self sendData];
-    
-    NSString *history = [NSString stringWithFormat:@"Me: %@\n", _textview.text];
-    [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
-    
-    [_textview setText:@""];
 }
 
 - (void)sendData
 {
-    [_discoveredPeripheral writeValue:_dataToSend forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
+    TransferMessage *message = [[TransferMessage alloc]init];
+    message.name = [[UIDevice currentDevice] name];
+    message.time = [[NSDate date] timeIntervalSince1970] * 1000;
+    message.complete = YES;
+    message.message = [[NSString alloc] initWithData:self.dataToSend encoding:NSUTF8StringEncoding];
+    
+    starTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    [_discoveredPeripheral writeValue:[message data] forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    NSTimeInterval timeInterval = ([[NSDate date] timeIntervalSince1970] * 1000) - starTime;
+    [self updateHistory:timeInterval];
+    
     self.btnSend.enabled = TRUE;
     
     if (error)
@@ -225,6 +250,20 @@
         NSLog(@"Central write Error : %@", error);
         return;
     }
+}
+
+- (void)updateHistory:(double) time
+{
+    NSString *history = [NSString stringWithFormat:@"(%f)Me: %@\n", time, _textview.text];
+    [_textview_peripheral_msg setText:[history stringByAppendingString:self.textview_peripheral_msg.text]];
+    
+    [_textview setText:@""];
+}
+
+- (void)showTimer
+{
+    double time = [[NSDate date] timeIntervalSince1970] * 1000;;
+    self.lbStatus.text = [NSString stringWithFormat:@"%lf", time];
 }
 
 @end

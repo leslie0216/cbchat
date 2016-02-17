@@ -7,9 +7,13 @@
 //
 
 #import "CBPeripheralViewController.h"
+#import "Messages.pbobjc.h"
 
 
 @implementation CBPeripheralViewController
+{
+    NSTimer *timer;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,6 +66,7 @@
     NSLog(@"didSubscribeToCharacteristic");
     self.btnSend.enabled = FALSE;
     self.lbStatus.text = @"Not Connected";
+    [timer invalidate];
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
@@ -76,60 +81,64 @@
     self.btnSend.enabled = TRUE;
     
     self.lbStatus.text = @"Connected";
+    if (timer == nil) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
+                                                 target:self
+                                               selector:@selector(showTimer)
+                                               userInfo:nil
+                                                repeats:YES];
+    }
 }
 
 - (void) sendData
 {
-    static BOOL sendingEOM = NO;
-    
-    if (sendingEOM) {
-        BOOL didSend = [self.peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.sendCharacteristic onSubscribedCentrals:nil];
-        
-        if (didSend) {
-            sendingEOM = NO;
-            self.btnSend.enabled = TRUE;
-        }
-        return;
-    }
-    
     if (self.sendDataIndex >= self.dataToSend.length) {
+        self.btnSend.enabled = YES;
         return;
     }
     
-    BOOL didSend = YES;
+    BOOL isComplete = NO;
     
-    while (didSend) {
+    while (!isComplete) {
+        TransferMessage *message = [[TransferMessage alloc]init];
+        message.name = [[UIDevice currentDevice] name];
+        message.time = [[NSDate date] timeIntervalSince1970] * 1000;
+        //message.message = self.textView.text;
+        
         NSInteger amountToSend = self.dataToSend.length - self.sendDataIndex;
         
         if (amountToSend > NOTIFY_MTU) {
             amountToSend = NOTIFY_MTU;
+            NSLog(@"Send more than once!!!");
+            isComplete = NO;
+        } else {
+            isComplete = YES;
         }
+        
+        message.complete = isComplete;
         
         NSData *chunk = [NSData dataWithBytes:self.dataToSend.bytes+self.sendDataIndex length:amountToSend];
         
-        didSend = [self.peripheralManager updateValue:chunk forCharacteristic:self.sendCharacteristic onSubscribedCentrals:nil];
+        message.message = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
+        
+        NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+        
+        BOOL didSend = [self.peripheralManager updateValue:[message data] forCharacteristic:self.sendCharacteristic onSubscribedCentrals:nil];
+        
+        NSTimeInterval timeInterval = ([[NSDate date] timeIntervalSince1970] * 1000) - startTime;
         
         if (!didSend) {
             return;
         }
+        
+        [self updateHistory:timeInterval];
         
         NSString *stringFromData = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
         NSLog(@"Sent : %@", stringFromData);
         
         self.sendDataIndex += amountToSend;
         
-        if (self.sendDataIndex >= self.dataToSend.length) {
-            sendingEOM = YES;
-            self.btnSend.enabled = FALSE;
-            
-            BOOL eomSent = [self.peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.sendCharacteristic onSubscribedCentrals:nil   ];
-            
-            if (eomSent) {
-                sendingEOM = NO;
-                self.btnSend.enabled = TRUE;
-                NSLog(@"Sent : EOM");
-            }
-        }
+        self.btnSend.enabled = isComplete;
     }
 }
 
@@ -145,13 +154,16 @@
 
     [_textView resignFirstResponder];
     
-    _dataToSend = [_textView.text dataUsingEncoding:NSUTF8StringEncoding];
+    _dataToSend = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
     
     _sendDataIndex = 0;
     
     [self sendData];
-    
-    NSString *history = [NSString stringWithFormat:@"Me: %@\n", _textView.text];
+}
+
+- (void)updateHistory:(double) time
+{
+    NSString *history = [NSString stringWithFormat:@"(%f)Me: %@\n", time, _textView.text];
     [_textView_central_msg setText:[history stringByAppendingString:self.textView_central_msg.text]];
     
     [_textView setText:@""];
@@ -161,16 +173,32 @@
 {
     for (CBATTRequest *request in requests) {
         if ([request.characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_MSG_FROM_CENTRAL_UUID]]) {
-
-            NSString *dataString = [[NSString alloc] initWithData:request.value encoding:NSUTF8StringEncoding];
-            NSLog(@"Received from central - %@", dataString);
             
-            NSString *history = [NSString stringWithFormat:@"Remote: %@\n", dataString];
-            [_textView_central_msg setText:[history stringByAppendingString:self.textView_central_msg.text]];
-
             [peripheral respondToRequest:request    withResult:CBATTErrorSuccess];
+            
+            TransferMessage *message = [[TransferMessage alloc] initWithData:request.value error:nil];
+            
+            if (message.complete) {
+                NSString *remoteName = message.name;
+                NSString *dataString = message.message;
+                //double time = ([[NSDate date] timeIntervalSince1970] * 1000) - message.time;
+                NSLog(@"Received from central - %@", dataString);
+                
+                NSString *history = [NSString stringWithFormat:@"%@: %@\n", remoteName, dataString];
+                [_textView_central_msg setText:[history stringByAppendingString:self.textView_central_msg.text]];
+            } else {
+                NSLog(@"Received data is not complete!!!");
+            }
+
+            //[peripheral respondToRequest:request    withResult:CBATTErrorSuccess];
         }
     }
+}
+
+- (void)showTimer
+{
+    double time = [[NSDate date] timeIntervalSince1970] * 1000;;
+    self.lbStatus.text = [NSString stringWithFormat:@"%lf", time];
 }
 
 @end
